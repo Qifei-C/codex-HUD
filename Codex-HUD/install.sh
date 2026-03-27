@@ -87,6 +87,24 @@ ensure_linux_build_deps() {
   pkg-config --exists libseccomp || fatal "libseccomp not visible via pkg-config after dependency install"
 }
 
+ensure_macos_build_deps() {
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    return 0
+  fi
+
+  local missing=0
+  command -v clang >/dev/null 2>&1 || missing=1
+  command -v clang++ >/dev/null 2>&1 || missing=1
+  command -v make >/dev/null 2>&1 || missing=1
+  command -v xcode-select >/dev/null 2>&1 || missing=1
+
+  if [[ $missing -eq 0 ]] && xcode-select -p >/dev/null 2>&1; then
+    return 0
+  fi
+
+  fatal "macOS build tools not found. Install Xcode Command Line Tools with: xcode-select --install"
+}
+
 ensure_local_bin_precedence() {
   mkdir -p "$INSTALL_BIN_DIR"
   export PATH="$INSTALL_BIN_DIR:$PATH"
@@ -94,11 +112,17 @@ ensure_local_bin_precedence() {
   local marker_start="# >>> codex-hud path >>>"
   local marker_end="# <<< codex-hud path <<<"
   local line='export PATH="$HOME/.local/bin:$PATH"'
-  local rc_files=("$HOME/.bashrc" "$HOME/.zshrc")
+  local rc_files=("$HOME/.bashrc")
+
+  if [[ "${SHELL##*/}" == "zsh" ]]; then
+    rc_files+=("$HOME/.zshrc" "$HOME/.zprofile")
+  else
+    rc_files+=("$HOME/.zshrc")
+  fi
 
   for rc in "${rc_files[@]}"; do
     if [[ ! -f "$rc" ]]; then
-      continue
+      : > "$rc"
     fi
     if grep -Fq "$marker_start" "$rc"; then
       continue
@@ -181,8 +205,12 @@ build_patched_codex_binary() {
 
   ensure_rust_toolchain
   ensure_linux_build_deps
+  ensure_macos_build_deps
 
   print_step "Building patched Codex binary"
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    print_step "First macOS release builds can take several minutes"
+  fi
   cd "$codex_repo/codex-rs"
   local build_log
   build_log="$(mktemp)"

@@ -18,18 +18,21 @@ cd codex-hud
 ```
 
 ## Supported Environment
-- Target: HUD harness for Codex CLI on Linux
-- OS: Linux (Ubuntu/Debian, Fedora/RHEL, Arch, openSUSE)
+- Target: HUD harness for Codex CLI on macOS and Linux
+- OS: macOS (Apple Silicon / Intel), Linux (Ubuntu/Debian, Fedora/RHEL, Arch, openSUSE)
 - Shell: bash, zsh
 - Runtime: Node.js + npm, Rust toolchain (`cargo`)
+- macOS prerequisites: Xcode Command Line Tools (`xcode-select --install`)
 - Package managers auto-detected by installer: `apt-get`, `dnf`, `pacman`, `zypper`
-- Not a primary target: native Windows/macOS
+- Not a primary target: native Windows
 
 `install.sh` automatically:
 - Builds the HUD (`npm ci`, `npm run build`)
 - Applies the Codex source patch and builds patched `codex`
 - Installs patched binary to `~/.local/bin/codex`
 - Configures `~/.codex/config.toml` with `status_line_command`
+
+On macOS, the first `cargo build --release` can take several minutes.
 
 ## Apply in Current Terminal
 Changes do not appear in already-running Codex sessions.
@@ -80,6 +83,7 @@ HUD • g5.3c • Usage ██░░░░░░░░ 25% (1h 30m / 5h) | █�
 ## Troubleshooting
 - HUD looks broken: reinstall latest build, then restart Codex session
 - Install succeeded but HUD not shown: restart sessions launched before install
+- HUD is easy to miss on macOS: it renders on the bottom row and may appear after the welcome screen redraw
 - `tmux: command not found`: tmux mode is optional, not required
 
 ## Support

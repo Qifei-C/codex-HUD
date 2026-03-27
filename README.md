@@ -31,9 +31,11 @@ cd codex-hud/Codex-HUD
 - Configures `~/.codex/config.toml` with the status line command
 
 ## Supported Environment
+- macOS (Apple Silicon / Intel)
 - Linux (Ubuntu/Debian, Fedora/RHEL, Arch, openSUSE)
 - bash / zsh
 - Node.js + npm, Rust (`cargo`)
+- macOS prerequisite: Xcode Command Line Tools (`xcode-select --install`)
 
 ## Validate Install
 ```bash
