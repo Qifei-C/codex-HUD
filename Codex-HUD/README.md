@@ -1,6 +1,6 @@
-# Codex HUD
+# Codex HUD (macOS Fork)
 
-Codex HUD is an open-source status line HUD for Codex CLI that displays Claude-HUD style usage and status information in the terminal.
+A macOS-compatible fork of [anhannin/codex-hud](https://github.com/anhannin/codex-hud) — a real-time status line HUD for [Codex CLI](https://github.com/openai/codex).
 
 ![Codex HUD screenshot](docs/assets/hud-example.png)
 
@@ -12,8 +12,8 @@ Codex HUD is an open-source status line HUD for Codex CLI that displays Claude-H
 
 ## Quick Start
 ```bash
-git clone https://github.com/anhannin/codex-hud.git
-cd codex-hud
+git clone https://github.com/Qifei-C/codex-HUD.git
+cd codex-HUD/Codex-HUD
 ./install.sh
 ```
 
@@ -63,8 +63,8 @@ Minimum pre-release checklist:
 
 Quick install for users:
 ```bash
-git clone https://github.com/anhannin/codex-hud.git
-cd codex-hud
+git clone https://github.com/Qifei-C/codex-HUD.git
+cd codex-HUD/Codex-HUD
 ./install.sh
 ```
 
@@ -86,8 +86,13 @@ HUD • g5.3c • Usage ██░░░░░░░░ 25% (1h 30m / 5h) | █�
 - HUD is easy to miss on macOS: it renders on the bottom row and may appear after the welcome screen redraw
 - `tmux: command not found`: tmux mode is optional, not required
 
+## Upstream
+- Original project: [anhannin/codex-hud](https://github.com/anhannin/codex-hud)
+- Sync upstream: `git fetch upstream && git merge upstream/master`
+
 ## Support
-- Bug reports: `https://github.com/anhannin/codex-hud/issues`
+- Bug reports: [github.com/Qifei-C/codex-HUD/issues](https://github.com/Qifei-C/codex-HUD/issues)
+- Upstream issues: [github.com/anhannin/codex-hud/issues](https://github.com/anhannin/codex-hud/issues)
 
 ## Project Layout
 - `src/`: HUD parser and renderer sources
